@@ -38,6 +38,7 @@ if($optionsArray.count -gt 0){
 #Always close out with the Hostname to connect to.
 $arguments += " " + $Hostname
 
+#Write the shortcut to a file.
 $shell = New-Object -ComObject WScript.Shell
 $shortcut = $shell.CreateShortcut($name + ".lnk")
 $shortcut.Arguments = $arguments
