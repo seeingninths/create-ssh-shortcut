@@ -5,6 +5,7 @@ param(
     [String]$LocalForward,
     [String]$Name=$Hostname,
     [Int32]$Port=22,
+    [String]$ProxyCommand,
     [String]$ProxyJump,
     [Int32]$WindowStyle=3,
     [String]$WorkingDirectory="%cd%"
@@ -13,6 +14,8 @@ param(
 $arguments = "-p " + $port
 if(!([String]::IsNullOrEmpty($ConfigFile))){$arguments += " -F " + $ConfigFile}
 if(!([String]::IsNullOrEmpty($LocalForward))){$arguments += " -L " + $LocalForward}
+#This is going to need to be done differently
+if(!([String]::IsNullOrEmpty($ProxyCommand))){$arguments += " -o ProxyCommand=" + $ProxyCommand}
 if(!([String]::IsNullOrEmpty($ProxyJump))){$arguments += " -J " + $ProxyJump}
 $arguments += " " + $Hostname
 
