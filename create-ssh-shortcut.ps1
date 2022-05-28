@@ -12,11 +12,16 @@ param(
     [String]$WorkingDirectory="%cd%"
 )
 
+#Initialize the arguments variable with the port number.
 $arguments = "-p " + $port
+
+#Process posible arguments with command line switches.
 if(![String]::IsNullOrEmpty($ConfigFile)){$arguments += " -F " + $ConfigFile}
 if(![String]::IsNullOrEmpty($LocalForward)){$arguments += " -L " + $LocalForward}
 if(![String]::IsNullOrEmpty($ProxyJump)){$arguments += " -J " + $ProxyJump}
 if(![String]::IsNullOrEmpty($User)){$arguments += " -l " + $User}
+
+#Section to process options that use the -o(options) flag.
 $optionsArray = @()
 $optionsString = ""
 if(![String]::IsNullOrEmpty($ProxyCommand)){$optionsArray += "ProxyCommand=" + $ProxyCommand}
@@ -29,6 +34,8 @@ if($optionsArray.count -gt 0){
     }
     $arguments += " -o " + $optionsString
 }
+
+#Always close out with the Hostname to connect to.
 $arguments += " " + $Hostname
 
 $shell = New-Object -ComObject WScript.Shell
