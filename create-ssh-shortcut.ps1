@@ -7,6 +7,7 @@ param(
     [Int32]$Port=22,
     [String]$ProxyCommand,
     [String]$ProxyJump,
+    [String]$User,
     [Int32]$WindowStyle=3,
     [String]$WorkingDirectory="%cd%"
 )
@@ -14,9 +15,20 @@ param(
 $arguments = "-p " + $port
 if(!([String]::IsNullOrEmpty($ConfigFile))){$arguments += " -F " + $ConfigFile}
 if(!([String]::IsNullOrEmpty($LocalForward))){$arguments += " -L " + $LocalForward}
-#This is going to need to be done differently
-if(!([String]::IsNullOrEmpty($ProxyCommand))){$arguments += " -o ProxyCommand=" + $ProxyCommand}
 if(!([String]::IsNullOrEmpty($ProxyJump))){$arguments += " -J " + $ProxyJump}
+$optionsArray = @()
+$optionsString = ""
+if(!([String]::IsNullOrEmpty($ProxyCommand))){$optionsArray += "ProxyCommand=" + $ProxyCommand}
+if(!([String]::IsNullOrEmpty($User))){$optionsArray += "User=" + $User}
+if($optionsArray.count -gt 0){
+    for ( $index = 0; $index -lt $optionsArray.count; $index++){
+        switch($index){
+            0 { $optionsString = $optionsArray[$index]; Break }
+            Default { $optionsString += "," + $optionsArray[$index]; Break }
+        }
+    }
+    $arguments += " -o " + $optionsString
+}
 $arguments += " " + $Hostname
 
 $shell = New-Object -ComObject WScript.Shell
