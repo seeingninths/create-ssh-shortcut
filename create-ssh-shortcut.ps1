@@ -10,7 +10,6 @@ param(
     [String]$WorkingDirectory="%cd%"
 )
 
-#Set up the arguments
 $arguments = "-p " + $port
 if(!([String]::IsNullOrEmpty($ConfigFile))){$arguments += " -F " + $ConfigFile}
 if(!([String]::IsNullOrEmpty($LocalForward))){$arguments += " -L " + $LocalForward}
@@ -19,7 +18,6 @@ $arguments += " " + $Hostname
 
 $shell = New-Object -ComObject WScript.Shell
 $shortcut = $shell.CreateShortcut($name + ".lnk")
-
 $shortcut.Arguments = $arguments
 $shortcut.Description = "SSH - " + $Hostname
 $shortcut.IconLocation = $IconLocation
