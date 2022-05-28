@@ -10,6 +10,7 @@ param(
     [String]$WorkingDirectory="%cd%"
 )
 
+#Set up the arguments
 $arguments = "-p " + $port
 if(!([String]::IsNullOrEmpty($ConfigFile))){$arguments += " -F " + $ConfigFile}
 if(!([String]::IsNullOrEmpty($LocalForward))){$arguments += " -L " + $LocalForward}
