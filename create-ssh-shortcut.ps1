@@ -26,7 +26,7 @@ $optionsArray = @()
 $optionsString = ""
 if(![String]::IsNullOrEmpty($ProxyCommand)){$optionsArray += "ProxyCommand=" + $ProxyCommand}
 if($optionsArray.count -gt 0){
-    $optionsString = (-split $optionsArray) -join ","
+    $optionsString = $optionsArray -join ","
     $arguments += " -o " + $optionsString
 }
 
