@@ -13,13 +13,13 @@ param(
 )
 
 $arguments = "-p " + $port
-if(!([String]::IsNullOrEmpty($ConfigFile))){$arguments += " -F " + $ConfigFile}
-if(!([String]::IsNullOrEmpty($LocalForward))){$arguments += " -L " + $LocalForward}
-if(!([String]::IsNullOrEmpty($ProxyJump))){$arguments += " -J " + $ProxyJump}
+if(![String]::IsNullOrEmpty($ConfigFile)){$arguments += " -F " + $ConfigFile}
+if(![String]::IsNullOrEmpty($LocalForward)){$arguments += " -L " + $LocalForward}
+if(![String]::IsNullOrEmpty($ProxyJump)){$arguments += " -J " + $ProxyJump}
 $optionsArray = @()
 $optionsString = ""
-if(!([String]::IsNullOrEmpty($ProxyCommand))){$optionsArray += "ProxyCommand=" + $ProxyCommand}
-if(!([String]::IsNullOrEmpty($User))){$optionsArray += "User=" + $User}
+if(![String]::IsNullOrEmpty($ProxyCommand)){$optionsArray += "ProxyCommand=" + $ProxyCommand}
+if(![String]::IsNullOrEmpty($User)){$optionsArray += "User=" + $User}
 if($optionsArray.count -gt 0){
     for ( $index = 0; $index -lt $optionsArray.count; $index++){
         switch($index){
